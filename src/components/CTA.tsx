@@ -17,13 +17,13 @@ const CTA = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="lg" asChild>
-              <Link href="/contact" className="inline-flex items-center gap-2">
+              <Link href="mailto:steven_ts@hotmail.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Mail className="h-4 w-4" />
                 Get in Touch
               </Link>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/stevedya" target="_blank" rel="noopener noreferrer">
                 View GitHub
               </a>
             </Button>

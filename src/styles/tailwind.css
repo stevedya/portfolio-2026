@@ -36,7 +36,7 @@
   --text-9xl--line-height: 1;
 
     /* Fonts */
-    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-sans: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-spectral: Spectral, Georgia, serif;
 
     /* Colors (mapped to your CSS variables) */

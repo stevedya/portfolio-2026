@@ -5,6 +5,7 @@ import About from '@/components/About'
 import FeaturedPhotos from '@/components/FeaturedPhotos'
 import FeaturedProjects from '@/components/FeaturedProjects'
 import LatestPosts from '@/components/LatestPosts'
+import CTA from '@/components/CTA'
 
 export default async function Home() {
   return (
@@ -16,7 +17,7 @@ export default async function Home() {
         <FeaturedProjects />
         <FeaturedPhotos />
         <LatestPosts />
-        {/*<CTA />*/}
+        <CTA />
       </main>
       <Footer />
     </div>

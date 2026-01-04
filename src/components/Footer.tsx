@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Instagram } from 'lucide-react'
 
 function NavLink({
   href,
@@ -22,10 +22,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Github, href: "https://github.com/stevedya/", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/steven-steinwand/", label: "LinkedIn" },
+    {icon: Instagram, href: "https://instagram.com/steven_ts", label: "Instagram"}
   ];
 
   return (

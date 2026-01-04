@@ -35,7 +35,7 @@ const FeaturedProjects = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
           <div>
             <p className="text-small mb-4">Featured Work</p>
-            <h2 className="heading-section">Selected Projects</h2>
+            <h2 className="heading-section">Featured Projects</h2>
           </div>
           <Link
             href="/work"
@@ -81,7 +81,7 @@ const FeaturedProjects = () => {
 
                 {/* Content overlay at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="heading-card text-white mb-2 group-hover:translate-x-1 transition-transform duration-300">
+                  <h3 className="heading-card text-white mb-2">
                     {project.title}
                   </h3>
                   <p className="text-sm text-white/80 line-clamp-2">
