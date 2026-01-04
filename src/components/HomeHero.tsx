@@ -2,6 +2,9 @@ import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import Image from "next/image";
+import avatarImg from "@/images/photos/avatar.jpg";
+import cliffSitter from "@/images/photos/cliff-sitter.jpg";
 
 const Hero = () => {
   return (
@@ -12,7 +15,7 @@ const Hero = () => {
             <div className="flex items-center gap-3 mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
               <Avatar className="h-10 w-10 border-2 border-border">
                 <AvatarImage
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+                  src={avatarImg.src}
                   alt="Steven Steinwand"
                 />
                 <AvatarFallback>SS</AvatarFallback>
@@ -44,10 +47,11 @@ const Hero = () => {
           {/* Hero Portrait Image */}
           <div className="hidden lg:block animate-fade-up" style={{ animationDelay: "0.3s" }}>
             <div className="w-72 h-96 rounded-lg overflow-hidden shadow-2xl relative">
-              <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=700&fit=crop"
-                alt="Workspace with code on screen"
-                className="w-full h-full object-cover"
+              <Image
+                src={cliffSitter}
+                alt="Steven sitting"
+                fill
+                className="w-full h-auto object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent" />
             </div>
