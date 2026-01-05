@@ -2,7 +2,6 @@ backend:
   name: github
   repo: stevedya/portfolio-2026
   branch: main
-#  client_id: Iv23lipxVYdRMVQxp7v2
 
 site_url: https://stevedya.github.io/portfolio-2026/
 display_url: https://stevedya.github.io/portfolio-2026/
