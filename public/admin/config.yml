@@ -1,12 +1,12 @@
 backend:
-  name: github
+  name: git-gateway
   repo: stevedya/portfolio-2026
   branch: main
 
 site_url: https://stevedya.github.io/portfolio-2026/
 display_url: https://stevedya.github.io/portfolio-2026/
 
-base_url: https://auth.stevensteinwand.com
+base_url: https://github-decap-auth.tripfomo.workers.dev/
 auth_endpoint: auth
 
 media_folder: "public/uploads"
