@@ -15,8 +15,8 @@ export default async function Home() {
         <HomeHero/>
         <About />
         <FeaturedProjects />
-        <FeaturedPhotos />
         <LatestPosts />
+        <FeaturedPhotos />
         <CTA />
       </main>
       <Footer />

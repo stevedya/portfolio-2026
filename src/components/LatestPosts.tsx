@@ -31,7 +31,7 @@ const posts = [
 const LatestPosts = () => {
   return (
     <section className="py-24 md:py-32 bg-card/50">
-      <div className="container-wide">
+      <div className="container-wide max-w-5xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
           <div>
             <p className="text-small mb-4">Blog</p>
