@@ -48,15 +48,15 @@ const Footer = () => {
               <NavLink href="/work">
                 Work
               </NavLink>
-              <NavLink href="/gallery">
-                Gallery
-              </NavLink>
+              {/*<NavLink href="/gallery">*/}
+              {/*  Gallery*/}
+              {/*</NavLink>*/}
               <NavLink href="/blog">
                 Blog
               </NavLink>
-              <NavLink href="/contact">
-                Contact
-              </NavLink>
+              {/*<NavLink href="/contact">*/}
+              {/*  Contact*/}
+              {/*</NavLink>*/}
             </div>
           </div>
 

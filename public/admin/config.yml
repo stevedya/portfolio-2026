@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: stevedya/portfolio-2026
+  branch: main
+  auth_endpoint: https://auth.decapcms.org/auth
+
+site_url: https://stevedya.github.io/portfolio-2026/
+display_url: https://stevedya.github.io/portfolio-2026/
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "home"
+    label: "Home"
+    files:
+      - name: "home"
+        label: "Homepage"
+        file: "src/content/home.md"
+        format: "frontmatter"
+        fields:
+          - label: "Featured Projects"
+            name: "featuredProjects"
+            widget: "list"
+            field:
+              label: "Project"
+              name: "project"
+              widget: "relation"
+              collection: "projects"
+              search_fields: ["title"]
+              value_field: "{{slug}}"
+              display_fields: ["title"]
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", min: 1 }
+      - { label: "Tech", name: "tech", widget: "list", field: { label: "Tech", name: "tech", widget: "string" } }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Live URL", name: "liveUrl", widget: "string", required: false }
+      - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: false }

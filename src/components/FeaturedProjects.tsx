@@ -1,34 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "A modern shopping experience built with React and Node.js",
-    category: "Web Development",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-    link: "/work",
-  },
-  {
-    id: 2,
-    title: "Financial Dashboard",
-    description: "Real-time analytics and data visualization for fintech",
-    category: "Full Stack",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    link: "/work",
-  },
-  {
-    id: 3,
-    title: "Mobile App Design",
-    description: "Cross-platform app for task management and productivity",
-    category: "UI/UX Design",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
-    link: "/work",
-  },
-];
+import { getFeaturedProjects, getProjectsBySlugs } from "@/lib/projects";
+import { getHomeContent } from "@/lib/home";
 
 const FeaturedProjects = () => {
+  const { featuredProjects } = getHomeContent();
+  const selectedProjects = getProjectsBySlugs(featuredProjects);
+  const projects = selectedProjects.length ? selectedProjects : getFeaturedProjects();
+
   return (
     <section className="py-24 md:py-32 bg-card/50">
       <div className="container-wide">
@@ -49,8 +28,8 @@ const FeaturedProjects = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <Link
-              key={project.id}
-              href={project.link}
+              key={project.slug}
+              href={`/work#${project.slug}`}
               className="group block"
             >
               <article className="relative card-hover rounded-xl overflow-hidden bg-background border border-border/50">
