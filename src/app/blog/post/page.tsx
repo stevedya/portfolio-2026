@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef } from "react";
 import Link from 'next/link'
 import Navigation from "@/components/Navigation";
@@ -5,6 +6,7 @@ import Footer from "@/components/Footer";
 import { ArrowLeft } from "lucide-react";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css";
+import {useParams} from 'next/navigation'
 
 // Mock blog post data - in a real app, this would come from a CMS or API
 const posts: Record<string, {
