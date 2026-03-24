@@ -18,9 +18,9 @@ const PhotographyPage = () => {
       <Navigation />
       <main className="pt-20">
         <section className="py-16 md:py-24">
-          <div className="container-wide">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-start mb-10 md:mb-14">
-              <div className="lg:col-span-2 max-w-4xl">
+          <div className="container-wide max-w-7xl">
+            <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center mb-10 md:mb-14">
+              <div className="max-w-4xl">
                 <h1 className="heading-display mb-4">Moments in time.</h1>
                 <p className="text-body">
                   Moments in time, they pass quickly, but through my lens, I try to hold onto them just a little longer.
@@ -30,11 +30,18 @@ const PhotographyPage = () => {
                 </p>
               </div>
               {heroPhoto ? (
-                <div className="lg:col-span-1">
-                  <div className="aspect-[3/4] overflow-hidden">
-                    <Img src={heroPhoto.src} alt={heroPhoto.alt} />
+                <>
+                  <div className="hidden lg:block">
+                    <div className="w-72 h-96 overflow-hidden rounded-lg">
+                      <Img src={heroPhoto.src} alt={heroPhoto.alt} />
+                    </div>
                   </div>
-                </div>
+                  <div className="lg:hidden mt-2">
+                    <div className="aspect-[3/4] max-w-sm overflow-hidden rounded-lg">
+                      <Img src={heroPhoto.src} alt={heroPhoto.alt} />
+                    </div>
+                  </div>
+                </>
               ) : null}
             </div>
 
