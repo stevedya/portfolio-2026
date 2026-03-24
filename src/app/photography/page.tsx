@@ -19,7 +19,7 @@ const PhotographyPage = () => {
       <main className="pt-20">
         <section className="py-16 md:py-24 overflow-x-clip">
           <div className="container-wide max-w-7xl">
-            <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center mb-10 md:mb-14">
+            <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center mb-16 md:mb-24">
               <div className="max-w-4xl">
                 <h1 className="heading-display mb-4">Moments in time.</h1>
                 <p className="text-body">
