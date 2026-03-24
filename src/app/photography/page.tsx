@@ -92,7 +92,7 @@ const PhotographyPage = () => {
                             </div>
                           </div>
                           <div className="min-w-0 pl-0 md:pl-3">
-                            <div className="aspect-[3/4] overflow-hidden">
+                            <div className="aspect-[4/5] overflow-hidden">
                               <Img src={port.src} alt={port.alt} />
                             </div>
                           </div>
@@ -100,7 +100,7 @@ const PhotographyPage = () => {
                       ) : (
                         <>
                           <div className="min-w-0 pr-0 md:pr-3">
-                            <div className="aspect-[3/4] overflow-hidden">
+                            <div className="aspect-[4/5] overflow-hidden">
                               <Img src={port.src} alt={port.alt} />
                             </div>
                           </div>
