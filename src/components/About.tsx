@@ -58,9 +58,9 @@ const About = () => {
             </div>
           </div>
 
-          <div className="max-w-[600px]">
-            <div className="aspect-[4/5] object-cover object-center overflow-hidden rounded-lg bg-muted">
-              <Image className="w-full h-auto" src={stevenImg} alt="Portrait" />
+          <div className="max-w-[340px] lg:ml-auto">
+            <div className="aspect-square overflow-hidden rounded-lg bg-muted">
+              <Image className="h-full w-full object-cover object-center" src={stevenImg} alt="Portrait" />
             </div>
           </div>
         </div>
