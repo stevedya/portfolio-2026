@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { getProjects } from "@/lib/projects";
 
 const Work = () => {
@@ -64,16 +64,7 @@ const Work = () => {
                           View Live
                         </a>
                       </Button>
-                      <Button variant="heroOutline" asChild>
-                        <a
-                          href={featuredProject.githubUrl ?? "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="h-4 w-4 mr-2" />
-                          Source Code
-                        </a>
-                      </Button>
+
                     </div>
                   </div>
                 </article>
@@ -121,15 +112,7 @@ const Work = () => {
                         <ExternalLink className="h-3.5 w-3.5" />
                         Live
                       </a>
-                      <a
-                        href={project.githubUrl ?? "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
-                      >
-                        <Github className="h-3.5 w-3.5" />
-                        Source
-                      </a>
+
                     </div>
                   </div>
                 </article>
