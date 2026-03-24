@@ -45,15 +45,9 @@ const Footer = () => {
               Quick Links
             </h4>
             <div className="flex flex-col gap-2">
-              <NavLink href="/work">
-                Work
-              </NavLink>
-              {/*<NavLink href="/gallery">*/}
-              {/*  Gallery*/}
-              {/*</NavLink>*/}
-              <NavLink href="/blog">
-                Blog
-              </NavLink>
+              <NavLink href="/about">About</NavLink>
+              <NavLink href="/work">Projects</NavLink>
+              <NavLink href="/blog">Blog</NavLink>
               {/*<NavLink href="/contact">*/}
               {/*  Contact*/}
               {/*</NavLink>*/}

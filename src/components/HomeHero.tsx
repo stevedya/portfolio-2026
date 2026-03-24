@@ -39,7 +39,7 @@ const Hero = () => {
                 <Link href="/work">View My Work</Link>
               </Button>
               <Button variant="heroOutline" size="lg" asChild>
-                <Link href="/contact">Get in Touch</Link>
+                <Link href="/about">About Me</Link>
               </Button>
             </div>
           </div>

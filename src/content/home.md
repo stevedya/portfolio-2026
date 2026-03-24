@@ -1,6 +1,6 @@
 ---
 featuredProjects:
-  - "e-commerce-platform"
-  - "financial-dashboard"
-  - "task-management-app"
+  - "wharton-interactive"
+  - "mozilla-mozfest"
+  - "tripfomo-platform"
 ---

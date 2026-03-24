@@ -12,12 +12,11 @@ const Navigation = () => {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/work", label: "Work" },
-    // { href: "/gallery", label: "Gallery" },
-    { href: "/blog", label: "Blog" },
-    // { href: "/contact", label: "Contact" },
-  ];
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/work', label: 'Projects' },
+    { href: '/blog', label: 'Blog' },
+  ]
 
   const isActive = (path: string) => pathname === path;
 
@@ -38,7 +37,7 @@ const Navigation = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm tracking-w  ide transition-colors link-underline ${
+                className={`text-sm tracking-wide transition-colors link-underline ${
                   isActive(link.href)
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
