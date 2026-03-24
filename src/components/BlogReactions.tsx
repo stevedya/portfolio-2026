@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { doc, getDoc, increment, setDoc } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
 
 type ReactionKey = 'heart' | 'rocket' | 'fire' | 'thumbsup' | 'eyes' | 'thumbsdown' | 'tada'
 
@@ -23,9 +25,6 @@ const REACTIONS: Reaction[] = [
 const emptyCounts = () => Object.fromEntries(REACTIONS.map((r) => [r.key, 0])) as Record<ReactionKey, number>
 
 export default function BlogReactions({ slug }: { slug: string }) {
-  const storageKey = useMemo(() => `blog:reactions:${slug}`, [slug])
-  const userKey = useMemo(() => `blog:reactions:user:${slug}`, [slug])
-
   const [counts, setCounts] = useState<Record<ReactionKey, number>>(emptyCounts)
   const [mine, setMine] = useState<Record<ReactionKey, boolean>>({
     heart: false,
@@ -37,39 +36,55 @@ export default function BlogReactions({ slug }: { slug: string }) {
     tada: false,
   })
 
+  const docRef = useMemo(() => doc(db, 'reactions', slug), [slug])
+
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(storageKey)
-      const storedMine = localStorage.getItem(userKey)
-      if (stored) setCounts({ ...emptyCounts(), ...JSON.parse(stored) })
-      if (storedMine) setMine((prev) => ({ ...prev, ...JSON.parse(storedMine) }))
-    } catch {
-      // ignore read errors
+    const load = async () => {
+      try {
+        const snap = await getDoc(docRef)
+        if (snap.exists()) {
+          const data = snap.data() as Partial<Record<ReactionKey, number>>
+          setCounts({ ...emptyCounts(), ...data })
+        }
+      } catch {
+        // ignore
+      }
+
+      const nextMine = { ...mine }
+      for (const reaction of REACTIONS) {
+        const key = `reacted:${slug}:${reaction.key}`
+        nextMine[reaction.key] = sessionStorage.getItem(key) === '1'
+      }
+      setMine(nextMine)
     }
-  }, [storageKey, userKey])
 
-  const toggleReaction = (key: ReactionKey) => {
-    setCounts((prev) => {
-      const next = { ...prev }
-      const isOn = !!mine[key]
-      next[key] = Math.max(0, (next[key] ?? 0) + (isOn ? -1 : 1))
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(next))
-      } catch {
-        // ignore write errors
-      }
-      return next
-    })
+    void load()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [docRef, slug])
 
-    setMine((prev) => {
-      const next = { ...prev, [key]: !prev[key] }
-      try {
-        localStorage.setItem(userKey, JSON.stringify(next))
-      } catch {
-        // ignore write errors
-      }
-      return next
-    })
+  const react = async (key: ReactionKey) => {
+    if (mine[key]) return
+
+    const sessionKey = `reacted:${slug}:${key}`
+    if (sessionStorage.getItem(sessionKey) === '1') return
+
+    setMine((prev) => ({ ...prev, [key]: true }))
+    setCounts((prev) => ({ ...prev, [key]: (prev[key] ?? 0) + 1 }))
+
+    sessionStorage.setItem(sessionKey, '1')
+
+    try {
+      await setDoc(
+        docRef,
+        {
+          [key]: increment(1),
+          updatedAt: Date.now(),
+        },
+        { merge: true },
+      )
+    } catch {
+      // ignore
+    }
   }
 
   return (
@@ -83,7 +98,7 @@ export default function BlogReactions({ slug }: { slug: string }) {
               key={reaction.key}
               type="button"
               aria-label={reaction.label}
-              onClick={() => toggleReaction(reaction.key)}
+              onClick={() => react(reaction.key)}
               className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${
                 active
                   ? 'border-foreground/30 bg-foreground/10 text-foreground'
@@ -96,7 +111,7 @@ export default function BlogReactions({ slug }: { slug: string }) {
           )
         })}
       </div>
-      <p className="text-xs text-muted-foreground mt-3">Counts are currently stored per browser/device.</p>
+      <p className="text-xs text-muted-foreground mt-3">Each reaction can be clicked once per page visit.</p>
     </section>
   )
 }
