@@ -76,22 +76,29 @@ const PhotographyPage = () => {
                   mixedIndex += 1
 
                   return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch md:[&>*]:min-w-0">
+                    <div
+                      key={idx}
+                      className={`grid grid-cols-1 gap-4 md:gap-6 items-stretch ${
+                        landscapeLeft
+                          ? 'md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]'
+                          : 'md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]'
+                      }`}
+                    >
                       {landscapeLeft ? (
                         <>
-                          <div className="md:col-span-2 aspect-[16/10] overflow-hidden">
+                          <div className="aspect-[16/10] overflow-hidden min-w-0">
                             <Img src={land.src} alt={land.alt} />
                           </div>
-                          <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
+                          <div className="aspect-[3/4] overflow-hidden min-w-0">
                             <Img src={port.src} alt={port.alt} />
                           </div>
                         </>
                       ) : (
                         <>
-                          <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
+                          <div className="aspect-[3/4] overflow-hidden min-w-0">
                             <Img src={port.src} alt={port.alt} />
                           </div>
-                          <div className="md:col-span-2 aspect-[16/10] overflow-hidden">
+                          <div className="aspect-[16/10] overflow-hidden min-w-0">
                             <Img src={land.src} alt={land.alt} />
                           </div>
                         </>
