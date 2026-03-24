@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     description: 'Software developer & photographer based in Canada.',
     images: [
       {
-        url: '/images/projects/world-wildlife-thumbnail.png',
+        url: '/images/hero/cliff-sitter.jpg',
         width: 1200,
         height: 630,
-        alt: 'Steven Steinwand Portfolio',
+        alt: 'Steven Steinwand hero image',
       },
     ],
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Steven Steinwand - Software developer & photographer based in Canada.',
     description: 'Software developer & photographer based in Canada.',
-    images: ['/images/projects/world-wildlife-thumbnail.png'],
+    images: ['/images/hero/cliff-sitter.jpg'],
   },
   alternates: {
     canonical: siteUrl,
