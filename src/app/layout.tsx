@@ -28,8 +28,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:shadow"
+        >
+          Skip to main content
+        </a>
         <Providers>
-          <Layout>{children}</Layout>
+          <div id="main-content" tabIndex={-1}>
+            <Layout>{children}</Layout>
+          </div>
         </Providers>
       </body>
     </html>

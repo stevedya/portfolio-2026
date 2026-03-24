@@ -1,10 +1,10 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { getProjects } from "@/lib/projects";
 import { withBasePath } from '@/lib/assets'
+import CTA from '@/components/CTA'
 
 const Work = () => {
   const projects = getProjects();
@@ -33,16 +33,30 @@ const Work = () => {
                   id={featuredProject.slug}
                   className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center"
                 >
-                  <div className="aspect-[4/3] overflow-hidden rounded-lg card-hover">
+                  <a
+                    href={featuredProject.liveUrl ?? '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="aspect-[4/3] overflow-hidden rounded-lg card-hover block"
+                  >
                     <img
                       src={withBasePath(featuredProject.image)}
                       alt={featuredProject.title}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </a>
                   <div>
                     <p className="text-small mb-3">{featuredProject.category}</p>
-                    <h2 className="heading-section mb-4">{featuredProject.title}</h2>
+                    <h2 className="heading-section mb-4">
+                      <a
+                        href={featuredProject.liveUrl ?? '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-accent transition-colors"
+                      >
+                        {featuredProject.title}
+                      </a>
+                    </h2>
                     <p className="text-body mb-6">{featuredProject.description}</p>
                     <div className="flex flex-wrap gap-2 mb-8">
                       {featuredProject.tech.map((t) => (
@@ -80,16 +94,30 @@ const Work = () => {
                   id={project.slug}
                   className="group card-hover rounded-lg overflow-hidden bg-card"
                 >
-                  <div className="aspect-[16/10] overflow-hidden">
+                  <a
+                    href={project.liveUrl ?? '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="aspect-[16/10] overflow-hidden block"
+                  >
                     <img
                       src={withBasePath(project.image)}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                  </div>
+                  </a>
                   <div className="p-6">
                     <p className="text-small mb-2">{project.category}</p>
-                    <h3 className="heading-card mb-3">{project.title}</h3>
+                    <h3 className="heading-card mb-3">
+                      <a
+                        href={project.liveUrl ?? '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-accent transition-colors"
+                      >
+                        {project.title}
+                      </a>
+                    </h3>
                     <p className="text-sm text-muted-foreground mb-4">
                       {project.description}
                     </p>
@@ -120,17 +148,8 @@ const Work = () => {
               ))}
             </div>
 
-            {/* CTA */}
-            <div className="mt-16 md:mt-24 text-center">
-              <p className="text-body mb-6">
-                Interested in working together?
-              </p>
-              <Button variant="hero" size="lg" asChild>
-                <Link href="/contact">
-                  Let's Talk
-                  <ArrowUpRight className="h-4 w-4 ml-2" />
-                </Link>
-              </Button>
+            <div className="mt-16 md:mt-24">
+              <CTA />
             </div>
           </div>
         </section>

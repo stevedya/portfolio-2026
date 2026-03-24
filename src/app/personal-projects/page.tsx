@@ -1,6 +1,7 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { getProjects } from '@/lib/projects'
+import { withBasePath } from '@/lib/assets'
 
 const PersonalProjects = () => {
   const projects = getProjects().filter((project) => project.category === 'Personal Project')
@@ -23,11 +24,25 @@ const PersonalProjects = () => {
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               {projects.map((project) => (
                 <article key={project.slug} className="rounded-lg overflow-hidden bg-card border border-border/50">
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                  </div>
+                  <a
+                    href={project.liveUrl ?? '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="aspect-[16/10] overflow-hidden block"
+                  >
+                    <img src={withBasePath(project.image)} alt={project.title} className="w-full h-full object-cover" />
+                  </a>
                   <div className="p-6">
-                    <h2 className="heading-card mb-2">{project.title}</h2>
+                    <h2 className="heading-card mb-2">
+                      <a
+                        href={project.liveUrl ?? '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-accent transition-colors"
+                      >
+                        {project.title}
+                      </a>
+                    </h2>
                     <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((t) => (
