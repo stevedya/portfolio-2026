@@ -1,6 +1,6 @@
 ---
 featuredProjects:
   - "world-wildlife-fund"
-  - "wharton-interactive"
+  - "heart-and-bones-yoga"
   - "tripfomo-platform"
 ---

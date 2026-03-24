@@ -22,8 +22,8 @@ const About = () => {
 
   return (
     <section id="about" className="py-16 md:py-20">
-      <div className="container-wide">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 justify-start items-start">
+      <div className="container-wide max-w-5xl">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 justify-start items-start">
           <div>
             <p className="text-small mb-4">About</p>
             <h2 className="heading-section mb-6">
