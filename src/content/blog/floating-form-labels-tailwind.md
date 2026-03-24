@@ -18,4 +18,9 @@ Tailwind's peer strategy lets one element (the peer) drive styles on another.
 - `peer-focus` applies styles while focused.
 - `peer-not-placeholder-shown` keeps the label floated after content is entered.
 
+### Live example
+
+<iframe src="https://play.tailwindcss.com/MzUugaIbrU" frameborder="0" width="100%" height="400" title="Tailwind Play: Floating Label Search">
+</iframe>
+
 The result is a clean floating label interaction without JavaScript.
