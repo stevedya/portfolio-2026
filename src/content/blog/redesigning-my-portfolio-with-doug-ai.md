@@ -13,6 +13,8 @@ I recently did a full redesign of my portfolio website, and I didn’t do it alo
 
 I collaborated with Doug, my personal AI assistant, to plan the structure, rewrite content, migrate project data, fix layout issues, and ship updates quickly. What could have turned into a long, messy side project became a focused build sprint with tight feedback loops.
 
+The rebuilt site runs on Next.js with Tailwind CSS v4, which made it fast to iterate while keeping the UI system consistent.
+
 ## Why I decided to redesign
 
 My previous portfolio had solid history in it, but it didn’t reflect how I work today.

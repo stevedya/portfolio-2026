@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { marked } from 'marked'
 import { withBasePath } from '@/lib/assets'
 import type { Metadata } from 'next'
+import BlogReactions from '@/components/BlogReactions'
 
 export function generateStaticParams() {
   return getPosts().map((post) => ({ slug: post.slug }))
@@ -95,6 +96,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             className="prose prose-zinc dark:prose-invert max-w-none"
             dangerouslySetInnerHTML={{ __html: marked.parse(post.content) as string }}
           />
+          <BlogReactions slug={slug} />
         </article>
       </main>
       <Footer />
