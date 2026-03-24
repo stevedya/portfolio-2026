@@ -4,9 +4,53 @@ import { getPostBySlug, getPosts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import { marked } from 'marked'
 import { withBasePath } from '@/lib/assets'
+import type { Metadata } from 'next'
 
 export function generateStaticParams() {
   return getPosts().map((post) => ({ slug: post.slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const post = getPostBySlug(slug)
+
+  if (!post) {
+    return {
+      title: 'Post not found',
+    }
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stevensteinwand.com'
+  const postUrl = `${siteUrl}/blog/${slug}`
+  const imageUrl = post.image
+    ? `${siteUrl}${post.image.startsWith('/') ? post.image : `/${post.image}`}`
+    : `${siteUrl}/images/projects/world-wildlife-thumbnail.png`
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: {
+      canonical: postUrl,
+    },
+    openGraph: {
+      type: 'article',
+      url: postUrl,
+      title: post.title,
+      description: post.excerpt,
+      images: [
+        {
+          url: imageUrl,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [imageUrl],
+    },
+  }
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {

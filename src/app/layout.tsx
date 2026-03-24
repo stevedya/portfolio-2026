@@ -5,17 +5,39 @@ import { Layout } from '@/components/Layout'
 
 import '@/styles/tailwind.css'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stevensteinwand.com'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     template: '%s - Steven Steinwand',
-    default:
-      'Steven Steinwand - Software developer & photographer based in Canada.',
+    default: 'Steven Steinwand - Software developer & photographer based in Canada.',
   },
-  description:
-    'Software developer & photographer based in Canada.',
+  description: 'Software developer & photographer based in Canada.',
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    title: 'Steven Steinwand - Software developer & photographer based in Canada.',
+    description: 'Software developer & photographer based in Canada.',
+    images: [
+      {
+        url: '/images/projects/world-wildlife-thumbnail.png',
+        width: 1200,
+        height: 630,
+        alt: 'Steven Steinwand Portfolio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Steven Steinwand - Software developer & photographer based in Canada.',
+    description: 'Software developer & photographer based in Canada.',
+    images: ['/images/projects/world-wildlife-thumbnail.png'],
+  },
   alternates: {
+    canonical: siteUrl,
     types: {
-      'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
+      'application/rss+xml': `${siteUrl}/feed.xml`,
     },
   },
 }
