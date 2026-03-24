@@ -78,7 +78,7 @@ const PhotographyPage = () => {
                   return (
                     <div
                       key={idx}
-                      className={`grid grid-cols-1 gap-4 md:gap-6 items-stretch ${
+                      className={`grid grid-cols-1 gap-4 md:gap-0 items-stretch ${
                         landscapeLeft
                           ? 'md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]'
                           : 'md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]'
@@ -86,20 +86,28 @@ const PhotographyPage = () => {
                     >
                       {landscapeLeft ? (
                         <>
-                          <div className="aspect-[16/10] overflow-hidden min-w-0">
-                            <Img src={land.src} alt={land.alt} />
+                          <div className="min-w-0 pr-0 md:pr-3">
+                            <div className="aspect-[16/10] overflow-hidden">
+                              <Img src={land.src} alt={land.alt} />
+                            </div>
                           </div>
-                          <div className="aspect-[3/4] overflow-hidden min-w-0">
-                            <Img src={port.src} alt={port.alt} />
+                          <div className="min-w-0 pl-0 md:pl-3">
+                            <div className="aspect-[3/4] overflow-hidden">
+                              <Img src={port.src} alt={port.alt} />
+                            </div>
                           </div>
                         </>
                       ) : (
                         <>
-                          <div className="aspect-[3/4] overflow-hidden min-w-0">
-                            <Img src={port.src} alt={port.alt} />
+                          <div className="min-w-0 pr-0 md:pr-3">
+                            <div className="aspect-[3/4] overflow-hidden">
+                              <Img src={port.src} alt={port.alt} />
+                            </div>
                           </div>
-                          <div className="aspect-[16/10] overflow-hidden min-w-0">
-                            <Img src={land.src} alt={land.alt} />
+                          <div className="min-w-0 pl-0 md:pl-3">
+                            <div className="aspect-[16/10] overflow-hidden">
+                              <Img src={land.src} alt={land.alt} />
+                            </div>
                           </div>
                         </>
                       )}
