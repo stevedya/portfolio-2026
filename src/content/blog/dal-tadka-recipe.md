@@ -5,7 +5,7 @@ category: "Recipes"
 date: "2026-01-05"
 readTime: "4 min read"
 image: "https://stevensteinwand.com/media/images/andy-holmes-mTqGgeYkfaY-unsplash_1.2e16d0ba.fill-605x363.jpg"
-order: 1
+order: 2
 ---
 Steve's special dal tadka.
 
