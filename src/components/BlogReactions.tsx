@@ -35,6 +35,7 @@ export default function BlogReactions({ slug }: { slug: string }) {
     thumbsdown: false,
     tada: false,
   })
+  const [errorText, setErrorText] = useState<string | null>(null)
 
   const docRef = useMemo(() => doc(db, 'reactions', slug), [slug])
 
@@ -46,8 +47,9 @@ export default function BlogReactions({ slug }: { slug: string }) {
           const data = snap.data() as Partial<Record<ReactionKey, number>>
           setCounts({ ...emptyCounts(), ...data })
         }
-      } catch {
-        // ignore
+      } catch (err: any) {
+        console.error('Firestore read failed:', err)
+        setErrorText(`Reactions sync issue (${err?.code || 'read-failed'})`)
       }
 
       const nextMine = { ...mine }
@@ -70,8 +72,18 @@ export default function BlogReactions({ slug }: { slug: string }) {
 
     setMine((prev) => ({ ...prev, [key]: true }))
     setCounts((prev) => ({ ...prev, [key]: (prev[key] ?? 0) + 1 }))
-
     sessionStorage.setItem(sessionKey, '1')
+
+    // local fallback cache so user still sees persisted counts per browser
+    try {
+      const fallbackKey = `blog:reactions:fallback:${slug}`
+      const current = localStorage.getItem(fallbackKey)
+      const parsed = current ? (JSON.parse(current) as Record<ReactionKey, number>) : emptyCounts()
+      const next = { ...parsed, [key]: (parsed[key] ?? 0) + 1 }
+      localStorage.setItem(fallbackKey, JSON.stringify(next))
+    } catch {
+      // ignore local fallback errors
+    }
 
     try {
       await setDoc(
@@ -82,8 +94,10 @@ export default function BlogReactions({ slug }: { slug: string }) {
         },
         { merge: true },
       )
-    } catch {
-      // ignore
+      setErrorText(null)
+    } catch (err: any) {
+      console.error('Firestore write failed:', err)
+      setErrorText(`Reactions sync issue (${err?.code || 'write-failed'})`)
     }
   }
 
@@ -112,6 +126,7 @@ export default function BlogReactions({ slug }: { slug: string }) {
         })}
       </div>
       <p className="text-xs text-muted-foreground mt-3">Each reaction can be clicked once per page visit.</p>
+      {errorText ? <p className="text-xs text-red-500 mt-2">{errorText}</p> : null}
     </section>
   )
 }
