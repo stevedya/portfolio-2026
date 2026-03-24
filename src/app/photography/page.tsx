@@ -3,13 +3,15 @@ import Footer from '@/components/Footer'
 import { getPhotographyItems, groupPhotographyRows } from '@/lib/photography'
 import { withBasePath } from '@/lib/assets'
 
-const Img = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={withBasePath(src)} alt={alt} className="w-full h-auto rounded-lg" loading="lazy" />
+const Img = ({ src, alt, className = '' }: { src: string; alt: string; className?: string }) => (
+  <img src={withBasePath(src)} alt={alt} className={`w-full h-full object-cover rounded-lg ${className}`} loading="lazy" />
 )
 
 const PhotographyPage = () => {
   const items = getPhotographyItems()
-  const rows = groupPhotographyRows(items)
+  const heroPhoto = items[0]
+  const rows = groupPhotographyRows(items.slice(1))
+  let mixedIndex = 0
 
   return (
     <div className="min-h-screen">
@@ -17,14 +19,23 @@ const PhotographyPage = () => {
       <main className="pt-20">
         <section className="py-16 md:py-24">
           <div className="container-wide">
-            <div className="max-w-4xl mb-10 md:mb-14">
-              <h1 className="heading-display mb-4">Moments in time.</h1>
-              <p className="text-body">
-                Moments in time, they pass quickly, but through my lens, I try to hold onto them just a little longer.
-                Over the years, I’ve been lucky enough to capture these fleeting memories alongside some amazing people,
-                whether planned or unexpected. It’s not about perfection, but about finding beauty in the everyday, and
-                maybe having a little fun along the way.
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-start mb-10 md:mb-14">
+              <div className="lg:col-span-2 max-w-4xl">
+                <h1 className="heading-display mb-4">Moments in time.</h1>
+                <p className="text-body">
+                  Moments in time, they pass quickly, but through my lens, I try to hold onto them just a little longer.
+                  Over the years, I’ve been lucky enough to capture these fleeting memories alongside some amazing people,
+                  whether planned or unexpected. It’s not about perfection, but about finding beauty in the everyday, and
+                  maybe having a little fun along the way.
+                </p>
+              </div>
+              {heroPhoto ? (
+                <div className="lg:col-span-1">
+                  <div className="aspect-[3/4] overflow-hidden">
+                    <Img src={heroPhoto.src} alt={heroPhoto.alt} />
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             <div className="space-y-6 md:space-y-8">
@@ -33,38 +44,41 @@ const PhotographyPage = () => {
                   const item = row.items[0]
                   if (!item) return null
                   return (
-                    <div key={idx}>
+                    <div key={idx} className="aspect-[16/8] md:aspect-[16/7] overflow-hidden">
                       <Img src={item.src} alt={item.alt} />
                     </div>
                   )
                 }
 
-                if (row.type === 'landscapePortrait') {
-                  const [land, port] = row.items
+                if (row.type === 'landscapePortrait' || row.type === 'portraitLandscape') {
+                  const land = row.items.find((i) => i.orientation === 'landscape')
+                  const port = row.items.find((i) => i.orientation === 'portrait')
                   if (!land || !port) return null
-                  return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
-                      <div className="md:col-span-2">
-                        <Img src={land.src} alt={land.alt} />
-                      </div>
-                      <div className="md:col-span-1">
-                        <Img src={port.src} alt={port.alt} />
-                      </div>
-                    </div>
-                  )
-                }
 
-                if (row.type === 'portraitLandscape') {
-                  const [port, land] = row.items
-                  if (!port || !land) return null
+                  const landscapeLeft = mixedIndex % 2 === 0
+                  mixedIndex += 1
+
                   return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
-                      <div className="md:col-span-1">
-                        <Img src={port.src} alt={port.alt} />
-                      </div>
-                      <div className="md:col-span-2">
-                        <Img src={land.src} alt={land.alt} />
-                      </div>
+                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+                      {landscapeLeft ? (
+                        <>
+                          <div className="md:col-span-2 aspect-[16/10] overflow-hidden">
+                            <Img src={land.src} alt={land.alt} />
+                          </div>
+                          <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
+                            <Img src={port.src} alt={port.alt} />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
+                            <Img src={port.src} alt={port.alt} />
+                          </div>
+                          <div className="md:col-span-2 aspect-[16/10] overflow-hidden">
+                            <Img src={land.src} alt={land.alt} />
+                          </div>
+                        </>
+                      )}
                     </div>
                   )
                 }
@@ -73,7 +87,7 @@ const PhotographyPage = () => {
                   return (
                     <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
                       {row.items.map((item) => (
-                        <div key={item.src}>
+                        <div key={item.src} className="aspect-[3/4] overflow-hidden">
                           <Img src={item.src} alt={item.alt} />
                         </div>
                       ))}
@@ -85,13 +99,17 @@ const PhotographyPage = () => {
                   const [port, l1, l2] = row.items
                   if (!port || !l1 || !l2) return null
                   return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
-                      <div className="md:col-span-1">
+                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+                      <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
                         <Img src={port.src} alt={port.alt} />
                       </div>
                       <div className="md:col-span-2 grid grid-cols-1 gap-4 md:gap-6">
-                        <Img src={l1.src} alt={l1.alt} />
-                        <Img src={l2.src} alt={l2.alt} />
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <Img src={l1.src} alt={l1.alt} />
+                        </div>
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <Img src={l2.src} alt={l2.alt} />
+                        </div>
                       </div>
                     </div>
                   )
@@ -101,12 +119,16 @@ const PhotographyPage = () => {
                   const [l1, l2, port] = row.items
                   if (!l1 || !l2 || !port) return null
                   return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
+                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
                       <div className="md:col-span-2 grid grid-cols-1 gap-4 md:gap-6">
-                        <Img src={l1.src} alt={l1.alt} />
-                        <Img src={l2.src} alt={l2.alt} />
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <Img src={l1.src} alt={l1.alt} />
+                        </div>
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <Img src={l2.src} alt={l2.alt} />
+                        </div>
                       </div>
-                      <div className="md:col-span-1">
+                      <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
                         <Img src={port.src} alt={port.alt} />
                       </div>
                     </div>
