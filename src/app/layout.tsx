@@ -2,6 +2,7 @@ import { type Metadata } from 'next'
 
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
 
 import '@/styles/tailwind.css'
 
@@ -57,6 +58,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Providers>
+          <GoogleAnalytics />
           <div id="main-content" tabIndex={-1}>
             <Layout>{children}</Layout>
           </div>
