@@ -1,6 +1,6 @@
 ---
 featuredProjects:
+  - "world-wildlife-fund"
   - "wharton-interactive"
-  - "mozilla-mozfest"
   - "tripfomo-platform"
 ---
