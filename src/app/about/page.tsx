@@ -12,7 +12,7 @@ export default function AboutPage() {
           <div className="container-wide max-w-5xl grid lg:grid-cols-2 gap-10 md:gap-14 items-start">
             <div>
               <p className="text-small mb-4">About</p>
-              <h1 className="heading-display mb-6">My Journey in Software Development</h1>
+              <h1 className="heading-section mb-6">My Journey in Software Development</h1>
               <div className="space-y-5 text-body">
                 <p>
                   My love for the web began young. At just 13, I was diving into HTML, PHP, and Photoshop,

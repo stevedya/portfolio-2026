@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 
 const CTA = () => {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-16 md:py-20">
       <div className="container-wide">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-small mb-4">Let's Work Together</p>

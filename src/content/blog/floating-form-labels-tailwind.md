@@ -7,12 +7,15 @@ readTime: "4 min read"
 image: "https://stevensteinwand.com/media/images/Screenshot_2025-07-08_at_4.38.15PM.2e16d0ba.fill-605x363.png"
 order: 2
 ---
-A practical walkthrough of floating labels using Tailwind's peer classes.
+Bring a polished, JavaScript-free floating label to your forms using Tailwind's peer utilities.
 
-Highlights:
-- `peer` on the input
-- `peer-placeholder-shown` for empty state
-- `peer-focus` for active/focused state
-- `peer-not-placeholder-shown` to keep labels floated when content exists
+## How it works
 
-No JavaScript required.
+Tailwind's peer strategy lets one element (the peer) drive styles on another.
+
+- `peer` on the input marks the reference point.
+- `peer-placeholder-shown` targets the label when the input is empty.
+- `peer-focus` applies styles while focused.
+- `peer-not-placeholder-shown` keeps the label floated after content is entered.
+
+The result is a clean floating label interaction without JavaScript.

@@ -8,7 +8,7 @@ const LatestPosts = () => {
   if (!posts.length) return null
 
   return (
-    <section className="py-24 md:py-32 bg-card/50">
+    <section className="py-16 md:py-20 bg-card/50">
       <div className="container-wide max-w-5xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
           <div>
