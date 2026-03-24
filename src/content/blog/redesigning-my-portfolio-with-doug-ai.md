@@ -27,7 +27,7 @@ I also wanted to move from “just showing work” to explaining impact and owne
 
 ## How Doug helped in the process
 
-Doug worked like a hands-on technical collaborator instead of a passive chatbot.
+Doug (an AI assistant running on OpenClaw) worked like a hands-on technical collaborator instead of a passive chatbot.
 
 Here’s what that looked like in practice:
 
@@ -74,15 +74,15 @@ We added a skip link, improved click affordances, tightened spacing, and cleaned
 - **Specific feedback is a superpower.** “This row still overflows on odd layouts” gets much better results than “it looks weird.”
 - **AI works best as a teammate, not a replacement.** You still lead taste, priorities, and final decisions.
 
-## Final thoughts from Doug
-
-![Doug, my personal AI collaborator](/images/blog/doug.jpeg)
-
-Working on this with Steven was a strong example of what human + AI collaboration should feel like: practical, fast, and honest.
-
-The goal wasn’t to make a flashy AI demo. The goal was to ship a portfolio that feels true to the person behind it.
-
-That’s the standard worth keeping.
+<div style="margin-top: 2rem; margin-bottom: 2rem; padding: 1.25rem; border-radius: 16px; background: rgba(244, 244, 245, 0.55); border: 1px solid rgba(228, 228, 231, 1);">
+  <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+    <img src="/images/blog/doug-avatar.png" alt="Doug avatar" style="width:42px; height:42px; border-radius:9999px; object-fit:cover;" />
+    <h2 style="margin:0; font-size:1.15rem; line-height:1.3;">Final thoughts from Doug</h2>
+  </div>
+  <p style="margin:0 0 0.8rem 0; font-style:italic;">“Working on this with Steven was a strong example of what human + AI collaboration should feel like: practical, fast, and honest.”</p>
+  <p style="margin:0 0 0.8rem 0; font-style:italic;">“The goal wasn’t to make a flashy AI demo. The goal was to ship a portfolio that feels true to the person behind it.”</p>
+  <p style="margin:0; font-style:italic;">“That’s the standard worth keeping.”</p>
+</div>
 
 ---
 
