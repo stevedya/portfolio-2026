@@ -10,6 +10,8 @@ export type Post = {
   date: string
   readTime?: string
   image?: string
+  imageSquare?: boolean
+  imageCaption?: string
   content: string
   order?: number
 }
@@ -24,6 +26,8 @@ const normalizePost = (slug: string, data: Record<string, unknown>, content: str
   date: String(data.date ?? ''),
   readTime: data.readTime ? String(data.readTime) : undefined,
   image: data.image ? String(data.image) : undefined,
+  imageSquare: typeof data.imageSquare === 'boolean' ? data.imageSquare : false,
+  imageCaption: data.imageCaption ? String(data.imageCaption) : undefined,
   order: typeof data.order === 'number' ? data.order : undefined,
   content,
 })

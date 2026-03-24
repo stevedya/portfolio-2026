@@ -5,6 +5,8 @@ category: "Software Engineering"
 date: "2026-03-24"
 readTime: "7 min read"
 image: "/images/blog/doug-cover.jpeg"
+imageSquare: true
+imageCaption: "Doug McGinty (AI-generated portrait)"
 order: 0
 ---
 I recently did a full redesign of my portfolio website, and I didn’t do it alone.

@@ -33,7 +33,20 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </div>
           <h1 className="heading-section mb-4">{post.title}</h1>
           <p className="text-sm text-muted-foreground mb-8">{post.date}</p>
-          {post.image ? <img src={withBasePath(post.image)} alt={post.title} className="w-full rounded-lg mb-10" /> : null}
+          {post.image ? (
+            <figure className="mb-10">
+              <div className={post.imageSquare ? 'w-full max-w-xl aspect-square overflow-hidden rounded-lg' : ''}>
+                <img
+                  src={withBasePath(post.image)}
+                  alt={post.title}
+                  className={post.imageSquare ? 'w-full h-full object-cover rounded-lg' : 'w-full rounded-lg'}
+                />
+              </div>
+              {post.imageCaption ? (
+                <figcaption className="text-xs text-muted-foreground mt-2">{post.imageCaption}</figcaption>
+              ) : null}
+            </figure>
+          ) : null}
           <div
             className="prose prose-zinc dark:prose-invert max-w-none"
             dangerouslySetInnerHTML={{ __html: marked.parse(post.content) as string }}
