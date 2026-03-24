@@ -4,7 +4,7 @@ excerpt: "Bring polished, JavaScript-free floating labels to your forms with Tai
 category: "Software Engineering"
 date: "2025-07-08"
 readTime: "4 min read"
-image: "https://stevensteinwand.com/media/images/Screenshot_2025-07-08_at_4.38.15PM.2e16d0ba.fill-605x363.png"
+image: "/images/imported/blog/Screenshot_2025-07-08_at_4.38.15PM.2e16d0ba.fill-605x363.png"
 order: 1
 ---
 Bring a polished, JavaScript-free floating label to your forms using Tailwind's peer utilities.

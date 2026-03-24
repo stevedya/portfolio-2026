@@ -4,7 +4,7 @@ excerpt: "Helpful npm commands to upgrade and manage dependencies with less pain
 category: "Software Engineering"
 date: "2025-06-20"
 readTime: "6 min read"
-image: "https://stevensteinwand.com/media/images/chris-ried-ieic5Tq8YMk-unsplash.2e16d0ba.fill-605x363.jpg"
+image: "/images/imported/blog/chris-ried-ieic5Tq8YMk-unsplash.2e16d0ba.fill-605x363.jpg"
 order: 3
 ---
 So you have to upgrade some npm packages eh?

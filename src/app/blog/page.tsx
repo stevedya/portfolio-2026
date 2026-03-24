@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { getPosts } from '@/lib/posts'
+import { withBasePath } from '@/lib/assets'
 
 const Blog = () => {
   const posts = getPosts()
@@ -28,7 +29,7 @@ const Blog = () => {
                     {posts[0].image ? (
                       <div className="aspect-[16/10] overflow-hidden rounded-lg">
                         <img
-                          src={posts[0].image}
+                          src={withBasePath(posts[0].image)}
                           alt={posts[0].title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
@@ -60,7 +61,7 @@ const Blog = () => {
                         {post.image ? (
                           <div className="aspect-[16/10] overflow-hidden">
                             <img
-                              src={post.image}
+                              src={withBasePath(post.image)}
                               alt={post.title}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />

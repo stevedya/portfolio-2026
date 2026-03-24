@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { getFeaturedProjects, getProjectsBySlugs } from '@/lib/projects'
 import { getHomeContent } from '@/lib/home'
+import { withBasePath } from '@/lib/assets'
 
 const FeaturedProjects = () => {
   const { featuredProjects } = getHomeContent()
@@ -31,7 +32,7 @@ const FeaturedProjects = () => {
               <article className="card-hover rounded-xl overflow-hidden bg-background border border-border/50 h-full">
                 <div className="aspect-[16/10] overflow-hidden">
                   <img
-                    src={project.image}
+                    src={withBasePath(project.image)}
                     alt={project.title}
                     className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                   />

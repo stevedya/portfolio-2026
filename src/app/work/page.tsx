@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { getProjects } from "@/lib/projects";
+import { withBasePath } from '@/lib/assets'
 
 const Work = () => {
   const projects = getProjects();
@@ -34,7 +35,7 @@ const Work = () => {
                 >
                   <div className="aspect-[4/3] overflow-hidden rounded-lg card-hover">
                     <img
-                      src={featuredProject.image}
+                      src={withBasePath(featuredProject.image)}
                       alt={featuredProject.title}
                       className="w-full h-full object-cover"
                     />
@@ -81,7 +82,7 @@ const Work = () => {
                 >
                   <div className="aspect-[16/10] overflow-hidden">
                     <img
-                      src={project.image}
+                      src={withBasePath(project.image)}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

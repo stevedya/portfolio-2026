@@ -4,7 +4,7 @@ excerpt: "Use Tailwind to keep content in a container while allowing a responsiv
 category: "Software Engineering"
 date: "2025-02-01"
 readTime: "4 min read"
-image: "https://stevensteinwand.com/media/images/split-banner.2e16d0ba.fill-605x363.jpg"
+image: "/images/imported/blog/split-banner.2e16d0ba.fill-605x363.jpg"
 order: 6
 ---
 A layout approach for balancing full-bleed imagery with constrained, readable content.

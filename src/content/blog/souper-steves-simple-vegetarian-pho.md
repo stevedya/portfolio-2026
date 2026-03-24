@@ -4,7 +4,7 @@ excerpt: "A straightforward vegetarian pho recipe with tofu, rice noodles, and e
 category: "Recipes"
 date: "2025-05-10"
 readTime: "5 min read"
-image: "https://stevensteinwand.com/media/images/IMG_4716.2e16d0ba.fill-605x363.jpg"
+image: "/images/imported/blog/IMG_4716.2e16d0ba.fill-605x363.jpg"
 order: 4
 ---
 A simple vegetarian pho that is quick to make and easy to customize.
