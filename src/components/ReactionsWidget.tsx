@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { doc, getDoc, increment, setDoc } from 'firebase/firestore'
+import { doc, increment, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
 export type ReactionDef = {
@@ -38,34 +38,39 @@ export default function ReactionsWidget({
   const docRef = useMemo(() => doc(db, 'reactions', slug), [slug])
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const snap = await getDoc(docRef)
-        if (snap.exists()) {
-          const data = snap.data() as Record<string, unknown>
-          const nextCounts = makeEmptyCounts(reactions)
-          for (const reaction of reactions) {
-            const value = data[reaction.key]
-            if (typeof value === 'number') {
-              nextCounts[reaction.key] = value
-            }
-          }
-          setCounts(nextCounts)
-        }
-      } catch (err: any) {
-        console.error('Firestore read failed:', err)
-        setErrorText(`Reactions sync issue (${err?.code || 'read-failed'})`)
-      }
-
-      const nextMine = makeEmptyMine(reactions)
-      for (const reaction of reactions) {
-        const key = `reacted:${slug}:${reaction.key}`
-        nextMine[reaction.key] = sessionStorage.getItem(key) === '1'
-      }
-      setMine(nextMine)
+    const nextMine = makeEmptyMine(reactions)
+    for (const reaction of reactions) {
+      const key = `reacted:${slug}:${reaction.key}`
+      nextMine[reaction.key] = sessionStorage.getItem(key) === '1'
     }
+    setMine(nextMine)
 
-    void load()
+    const unsubscribe = onSnapshot(
+      docRef,
+      (snap) => {
+        if (!snap.exists()) {
+          setCounts(makeEmptyCounts(reactions))
+          return
+        }
+
+        const data = snap.data() as Record<string, unknown>
+        const nextCounts = makeEmptyCounts(reactions)
+        for (const reaction of reactions) {
+          const value = data[reaction.key]
+          if (typeof value === 'number') {
+            nextCounts[reaction.key] = value
+          }
+        }
+        setCounts(nextCounts)
+        setErrorText(null)
+      },
+      (err: any) => {
+        console.error('Firestore realtime listener failed:', err)
+        setErrorText(`Reactions sync issue (${err?.code || 'listen-failed'})`)
+      },
+    )
+
+    return () => unsubscribe()
   }, [docRef, reactions, slug])
 
   const react = async (key: string) => {
