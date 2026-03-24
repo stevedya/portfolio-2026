@@ -31,7 +31,7 @@ const Blog = () => {
                         <img
                           src={withBasePath(posts[0].image)}
                           alt={posts[0].title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     ) : (
@@ -63,7 +63,7 @@ const Blog = () => {
                             <img
                               src={withBasePath(post.image)}
                               alt={post.title}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                             />
                           </div>
                         ) : null}
