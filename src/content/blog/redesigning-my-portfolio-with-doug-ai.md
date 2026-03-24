@@ -4,7 +4,7 @@ excerpt: "A practical look at how Steven and Doug (his personal AI) rebuilt stev
 category: "Software Engineering"
 date: "2026-03-24"
 readTime: "7 min read"
-image: "/images/projects/world-wildlife-thumbnail.png"
+image: "/images/blog/doug-cover.jpeg"
 order: 0
 ---
 I recently did a full redesign of my portfolio website, and I didn’t do it alone.
