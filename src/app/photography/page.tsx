@@ -4,7 +4,7 @@ import { getPhotographyItems, groupPhotographyRows } from '@/lib/photography'
 import { withBasePath } from '@/lib/assets'
 
 const Img = ({ src, alt, className = '' }: { src: string; alt: string; className?: string }) => (
-  <img src={withBasePath(src)} alt={alt} className={`w-full h-full object-cover rounded-lg ${className}`} loading="lazy" />
+  <img src={withBasePath(src)} alt={alt} className={`block w-full h-full object-cover rounded-lg ${className}`} loading="lazy" />
 )
 
 const PhotographyPage = () => {
@@ -17,9 +17,9 @@ const PhotographyPage = () => {
     <div className="min-h-screen">
       <Navigation />
       <main className="pt-20">
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24 overflow-x-clip">
           <div className="container-wide max-w-7xl">
-            <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center mb-10 md:mb-14">
+            <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center mb-10 md:mb-14">
               <div className="max-w-4xl">
                 <h1 className="heading-display mb-4">Moments in time.</h1>
                 <p className="text-body">
@@ -32,7 +32,7 @@ const PhotographyPage = () => {
               {heroPhoto ? (
                 <>
                   <div className="hidden lg:block">
-                    <div className="w-72 h-96 overflow-hidden rounded-lg">
+                    <div className="w-72 h-96 overflow-hidden rounded-lg shadow-2xl">
                       <Img src={heroPhoto.src} alt={heroPhoto.alt} />
                     </div>
                   </div>
@@ -76,7 +76,7 @@ const PhotographyPage = () => {
                   mixedIndex += 1
 
                   return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch md:[&>*]:min-w-0">
                       {landscapeLeft ? (
                         <>
                           <div className="md:col-span-2 aspect-[16/10] overflow-hidden">
@@ -102,7 +102,7 @@ const PhotographyPage = () => {
 
                 if (row.type === 'threePortraits') {
                   return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
+                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start md:[&>*]:min-w-0">
                       {row.items.map((item) => (
                         <div key={item.src} className="aspect-[3/4] overflow-hidden">
                           <Img src={item.src} alt={item.alt} />
