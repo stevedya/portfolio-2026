@@ -21,13 +21,12 @@ const Hero = () => {
             </div>
 
             <h1 className="heading-display mb-6">
-              Building useful products with <span className="italic">code</span>, and sharing stories through{' '}
-              <span className="italic">photography</span>
+              Solving real problems with <span className="italic">code</span> and thoughtful <span className="italic">design</span>
             </h1>
 
             <p className="text-body max-w-2xl mb-8">
-              Hey, I&apos;m Steven. I&apos;m a software developer based in Canada. I care about clean UX, solid frontend
-              foundations, and shipping work that&apos;s actually helpful for real people.
+              I&apos;m Steven, a software developer based in Canada. I focus on clean UX, solid systems, and building
+              products that solve real problems for real people.
             </p>
 
             <div className="flex flex-wrap gap-4">
