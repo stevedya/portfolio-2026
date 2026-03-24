@@ -57,6 +57,16 @@ const PhotographyPage = () => {
                   )
                 }
 
+                if (row.type === 'singlePortrait') {
+                  const item = row.items[0]
+                  if (!item) return null
+                  return (
+                    <div key={idx} className="max-w-md aspect-[3/4] overflow-hidden">
+                      <Img src={item.src} alt={item.alt} />
+                    </div>
+                  )
+                }
+
                 if (row.type === 'landscapePortrait' || row.type === 'portraitLandscape') {
                   const land = row.items.find((i) => i.orientation === 'landscape')
                   const port = row.items.find((i) => i.orientation === 'portrait')
@@ -102,45 +112,6 @@ const PhotographyPage = () => {
                   )
                 }
 
-                if (row.type === 'portraitWithLandscapeStack') {
-                  const [port, l1, l2] = row.items
-                  if (!port || !l1 || !l2) return null
-                  return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
-                      <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
-                        <Img src={port.src} alt={port.alt} />
-                      </div>
-                      <div className="md:col-span-2 grid grid-cols-1 gap-4 md:gap-6">
-                        <div className="aspect-[16/10] overflow-hidden">
-                          <Img src={l1.src} alt={l1.alt} />
-                        </div>
-                        <div className="aspect-[16/10] overflow-hidden">
-                          <Img src={l2.src} alt={l2.alt} />
-                        </div>
-                      </div>
-                    </div>
-                  )
-                }
-
-                if (row.type === 'landscapeStackWithPortrait') {
-                  const [l1, l2, port] = row.items
-                  if (!l1 || !l2 || !port) return null
-                  return (
-                    <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
-                      <div className="md:col-span-2 grid grid-cols-1 gap-4 md:gap-6">
-                        <div className="aspect-[16/10] overflow-hidden">
-                          <Img src={l1.src} alt={l1.alt} />
-                        </div>
-                        <div className="aspect-[16/10] overflow-hidden">
-                          <Img src={l2.src} alt={l2.alt} />
-                        </div>
-                      </div>
-                      <div className="md:col-span-1 aspect-[3/4] overflow-hidden">
-                        <Img src={port.src} alt={port.alt} />
-                      </div>
-                    </div>
-                  )
-                }
 
                 return null
               })}

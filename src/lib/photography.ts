@@ -47,13 +47,7 @@ export type PhotoItem = {
 }
 
 export type PhotoRow = {
-  type:
-    | 'landscapePortrait'
-    | 'portraitLandscape'
-    | 'threePortraits'
-    | 'singleLandscape'
-    | 'portraitWithLandscapeStack'
-    | 'landscapeStackWithPortrait'
+  type: 'landscapePortrait' | 'portraitLandscape' | 'threePortraits' | 'singleLandscape' | 'singlePortrait'
   items: PhotoItem[]
 }
 
@@ -93,19 +87,6 @@ export const groupPhotographyRows = (items: PhotoItem[]): PhotoRow[] => {
 
     if (!a) break
 
-    // portrait on left, two landscapes stacked on right
-    if (a.orientation === 'portrait' && b?.orientation === 'landscape' && c?.orientation === 'landscape') {
-      rows.push({ type: 'portraitWithLandscapeStack', items: [a, b, c] })
-      i += 3
-      continue
-    }
-
-    // two landscapes stacked on left, portrait on right
-    if (a.orientation === 'landscape' && b?.orientation === 'landscape' && c?.orientation === 'portrait') {
-      rows.push({ type: 'landscapeStackWithPortrait', items: [a, b, c] })
-      i += 3
-      continue
-    }
 
     if (a.orientation === 'landscape' && b?.orientation === 'portrait') {
       rows.push({ type: 'landscapePortrait', items: [a, b] })
@@ -132,8 +113,8 @@ export const groupPhotographyRows = (items: PhotoItem[]): PhotoRow[] => {
     }
 
     // fallback for isolated portrait
-    rows.push({ type: 'portraitLandscape', items: [a, b].filter(Boolean) as PhotoItem[] })
-    i += b ? 2 : 1
+    rows.push({ type: 'singlePortrait', items: [a] })
+    i += 1
   }
 
   return rows
