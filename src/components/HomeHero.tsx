@@ -5,6 +5,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import Image from 'next/image'
 import avatarImg from '@/images/photos/avatar.jpg'
 import cliffSitter from '@/images/photos/cliff-sitter.jpg'
+import HomeHeroReactions from '@/components/HomeHeroReactions'
 
 const Hero = () => {
   return (
@@ -37,6 +38,8 @@ const Hero = () => {
                 <Link href="/about">About Me</Link>
               </Button>
             </div>
+
+            <HomeHeroReactions />
           </div>
 
           <div className="hidden lg:block">

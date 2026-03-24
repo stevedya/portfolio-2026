@@ -1,18 +1,6 @@
-'use client'
+import ReactionsWidget, { type ReactionDef } from '@/components/ReactionsWidget'
 
-import { useEffect, useMemo, useState } from 'react'
-import { doc, getDoc, increment, setDoc } from 'firebase/firestore'
-import { db } from '@/lib/firebase'
-
-type ReactionKey = 'heart' | 'rocket' | 'fire' | 'thumbsup' | 'eyes' | 'thumbsdown' | 'tada'
-
-type Reaction = {
-  key: ReactionKey
-  emoji: string
-  label: string
-}
-
-const REACTIONS: Reaction[] = [
+const BLOG_REACTIONS: ReactionDef[] = [
   { key: 'heart', emoji: '❤️', label: 'Love' },
   { key: 'rocket', emoji: '🚀', label: 'Rocket' },
   { key: 'fire', emoji: '🔥', label: 'Fire' },
@@ -22,111 +10,14 @@ const REACTIONS: Reaction[] = [
   { key: 'tada', emoji: '🎉', label: 'Tada' },
 ]
 
-const emptyCounts = () => Object.fromEntries(REACTIONS.map((r) => [r.key, 0])) as Record<ReactionKey, number>
-
 export default function BlogReactions({ slug }: { slug: string }) {
-  const [counts, setCounts] = useState<Record<ReactionKey, number>>(emptyCounts)
-  const [mine, setMine] = useState<Record<ReactionKey, boolean>>({
-    heart: false,
-    rocket: false,
-    fire: false,
-    thumbsup: false,
-    eyes: false,
-    thumbsdown: false,
-    tada: false,
-  })
-  const [errorText, setErrorText] = useState<string | null>(null)
-
-  const docRef = useMemo(() => doc(db, 'reactions', slug), [slug])
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const snap = await getDoc(docRef)
-        if (snap.exists()) {
-          const data = snap.data() as Partial<Record<ReactionKey, number>>
-          setCounts({ ...emptyCounts(), ...data })
-        }
-      } catch (err: any) {
-        console.error('Firestore read failed:', err)
-        setErrorText(`Reactions sync issue (${err?.code || 'read-failed'})`)
-      }
-
-      const nextMine = { ...mine }
-      for (const reaction of REACTIONS) {
-        const key = `reacted:${slug}:${reaction.key}`
-        nextMine[reaction.key] = sessionStorage.getItem(key) === '1'
-      }
-      setMine(nextMine)
-    }
-
-    void load()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [docRef, slug])
-
-  const react = async (key: ReactionKey) => {
-    if (mine[key]) return
-
-    const sessionKey = `reacted:${slug}:${key}`
-    if (sessionStorage.getItem(sessionKey) === '1') return
-
-    setMine((prev) => ({ ...prev, [key]: true }))
-    setCounts((prev) => ({ ...prev, [key]: (prev[key] ?? 0) + 1 }))
-    sessionStorage.setItem(sessionKey, '1')
-
-    // local fallback cache so user still sees persisted counts per browser
-    try {
-      const fallbackKey = `blog:reactions:fallback:${slug}`
-      const current = localStorage.getItem(fallbackKey)
-      const parsed = current ? (JSON.parse(current) as Record<ReactionKey, number>) : emptyCounts()
-      const next = { ...parsed, [key]: (parsed[key] ?? 0) + 1 }
-      localStorage.setItem(fallbackKey, JSON.stringify(next))
-    } catch {
-      // ignore local fallback errors
-    }
-
-    try {
-      await setDoc(
-        docRef,
-        {
-          [key]: increment(1),
-          updatedAt: Date.now(),
-        },
-        { merge: true },
-      )
-      setErrorText(null)
-    } catch (err: any) {
-      console.error('Firestore write failed:', err)
-      setErrorText(`Reactions sync issue (${err?.code || 'write-failed'})`)
-    }
-  }
-
   return (
-    <section className="mt-12 border-t border-border pt-6">
-      <p className="text-sm text-muted-foreground mb-3">Reactions</p>
-      <div className="flex flex-wrap gap-2">
-        {REACTIONS.map((reaction) => {
-          const active = mine[reaction.key]
-          return (
-            <button
-              key={reaction.key}
-              type="button"
-              aria-label={reaction.label}
-              onClick={() => react(reaction.key)}
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${
-                active
-                  ? 'border-foreground/30 bg-foreground/10 text-foreground'
-                  : 'border-border bg-card text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <span>{reaction.emoji}</span>
-              <span>{counts[reaction.key] ?? 0}</span>
-            </button>
-          )
-        })}
-      </div>
-      <p className="text-xs text-muted-foreground mt-3">Each reaction can be clicked once per page visit.</p>
-      {errorText ? <p className="text-xs text-red-500 mt-2">{errorText}</p> : null}
-    </section>
+    <ReactionsWidget
+      slug={slug}
+      reactions={BLOG_REACTIONS}
+      title="Reactions"
+      showHint
+      containerClassName="mt-12 border-t border-border pt-6"
+    />
   )
 }
