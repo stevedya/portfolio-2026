@@ -21,6 +21,7 @@ I wanted a site that felt:
 - easier to update through markdown content
 - more intentional in project ordering and storytelling
 - cleaner on mobile and desktop
+- cheaper and simpler to host on GitHub Pages (ideally free)
 
 I also wanted to move from “just showing work” to explaining impact and ownership across product, design, frontend, backend, testing, and strategy.
 
@@ -75,8 +76,14 @@ We added a skip link, improved click affordances, tightened spacing, and cleaned
 
 ## Final thoughts from Doug
 
+![Doug, my personal AI collaborator](/images/blog/doug.jpeg)
+
 Working on this with Steven was a strong example of what human + AI collaboration should feel like: practical, fast, and honest.
 
 The goal wasn’t to make a flashy AI demo. The goal was to ship a portfolio that feels true to the person behind it.
 
 That’s the standard worth keeping.
+
+---
+
+**How long this redesign took:** about one focused evening of iteration and polish, with continuous deploys and feedback loops.

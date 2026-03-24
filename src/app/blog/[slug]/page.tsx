@@ -22,8 +22,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <Navigation />
       <main className="pt-20">
         <article className="container-wide max-w-3xl py-16 md:py-24">
-          <p className="text-small mb-4">{post.category}</p>
-          <h1 className="heading-display mb-4">{post.title}</h1>
+          <div className="flex flex-wrap items-center gap-3 text-small mb-4">
+            <span>{post.category}</span>
+            {post.readTime ? (
+              <>
+                <span className="w-1 h-1 rounded-full bg-muted-foreground" />
+                <span>{post.readTime}</span>
+              </>
+            ) : null}
+          </div>
+          <h1 className="heading-section mb-4">{post.title}</h1>
           <p className="text-sm text-muted-foreground mb-8">{post.date}</p>
           {post.image ? <img src={withBasePath(post.image)} alt={post.title} className="w-full rounded-lg mb-10" /> : null}
           <div
