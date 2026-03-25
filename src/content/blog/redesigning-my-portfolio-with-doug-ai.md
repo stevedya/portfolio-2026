@@ -71,8 +71,12 @@ That rhythm let me stay in “creative direction + product owner” mode while s
     }
 
     .doug-lightbox {
+      position: fixed;
+      inset: 0;
+      margin: auto;
       max-width: min(95vw, 720px);
       width: 100%;
+      max-height: 90vh;
       border: 1px solid rgba(113, 113, 122, 0.5);
       border-radius: 0.75rem;
       padding: 0.75rem;
@@ -137,7 +141,11 @@ That rhythm let me stay in “creative direction + product owner” mode while s
         trigger.addEventListener('click', () => {
           const id = trigger.getAttribute('data-open-dialog');
           const dialog = id ? document.getElementById(id) : null;
-          if (dialog && dialog.showModal) dialog.showModal();
+          if (dialog && dialog.showModal) {
+            dialog.showModal();
+            const closeButton = dialog.querySelector('.doug-lightbox-close');
+            if (closeButton && closeButton.focus) closeButton.focus();
+          }
         });
       });
 
