@@ -45,6 +45,115 @@ Here’s what that looked like in practice:
 
 That rhythm let me stay in “creative direction + product owner” mode while still moving at builder speed.
 
+<div id="doug-process-gallery" class="my-8">
+  <style>
+    .doug-process-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .doug-process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .doug-process-thumb {
+      display: block;
+      border: 1px solid rgba(161, 161, 170, 0.4);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      text-decoration: none;
+      background: rgba(244, 244, 245, 0.5);
+    }
+
+    .doug-process-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .doug-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .doug-lightbox:target {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .doug-lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 9, 11, 0.9);
+      display: block;
+    }
+
+    .doug-lightbox-content {
+      position: relative;
+      z-index: 1;
+      max-width: min(95vw, 720px);
+      max-height: 90vh;
+      margin: 5vh auto;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      background: rgba(24, 24, 27, 0.75);
+      border: 1px solid rgba(113, 113, 122, 0.5);
+    }
+
+    .doug-lightbox-content img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      display: block;
+    }
+
+    .doug-lightbox-close {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.5rem;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      padding: 0.25rem 0.5rem;
+    }
+  </style>
+
+  <div class="doug-process-grid">
+    <a href="#doug-text-1" class="doug-process-thumb" aria-label="Open conversation screenshot 1">
+      <img src="/images/blog/doug-portfolio-rebuild-text-message-1.png" alt="Text message screenshot showing Doug helping with portfolio rebuild tasks" loading="lazy" />
+    </a>
+    <a href="#doug-text-2" class="doug-process-thumb" aria-label="Open conversation screenshot 2">
+      <img src="/images/blog/doug-portfolio-rebuild-text-message-2.png" alt="Text message screenshot showing iterative feedback and deploy updates" loading="lazy" />
+    </a>
+  </div>
+
+  <div id="doug-text-1" class="doug-lightbox" role="dialog" aria-modal="true" aria-label="Conversation screenshot 1">
+    <a href="#doug-process-gallery" class="doug-lightbox-backdrop" aria-label="Close image popup"></a>
+    <div class="doug-lightbox-content">
+      <a href="#doug-process-gallery" class="doug-lightbox-close" aria-label="Close image popup">×</a>
+      <img src="/images/blog/doug-portfolio-rebuild-text-message-1.png" alt="Text message screenshot showing Doug helping with portfolio rebuild tasks" />
+    </div>
+  </div>
+
+  <div id="doug-text-2" class="doug-lightbox" role="dialog" aria-modal="true" aria-label="Conversation screenshot 2">
+    <a href="#doug-process-gallery" class="doug-lightbox-backdrop" aria-label="Close image popup"></a>
+    <div class="doug-lightbox-content">
+      <a href="#doug-process-gallery" class="doug-lightbox-close" aria-label="Close image popup">×</a>
+      <img src="/images/blog/doug-portfolio-rebuild-text-message-2.png" alt="Text message screenshot showing iterative feedback and deploy updates" />
+    </div>
+  </div>
+</div>
+
 > “The best part wasn’t just speed. It was having a collaborator that could take ambiguous design feedback, translate it into concrete code changes, and iterate without losing context.”
 
 ## What changed in the new portfolio
