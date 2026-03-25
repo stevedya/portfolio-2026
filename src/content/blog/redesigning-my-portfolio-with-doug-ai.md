@@ -50,13 +50,7 @@ That rhythm let me stay in “creative direction + product owner” mode while s
     .doug-process-grid {
       display: grid;
       gap: 0.75rem;
-      grid-template-columns: 1fr;
-    }
-
-    @media (min-width: 768px) {
-      .doug-process-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .doug-process-thumb {
@@ -64,51 +58,32 @@ That rhythm let me stay in “creative direction + product owner” mode while s
       border: 1px solid rgba(161, 161, 170, 0.4);
       border-radius: 0.75rem;
       overflow: hidden;
-      text-decoration: none;
       background: rgba(244, 244, 245, 0.5);
+      cursor: pointer;
+      padding: 0;
     }
 
     .doug-process-thumb img {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 9 / 16;
       object-fit: cover;
       display: block;
     }
 
     .doug-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .doug-lightbox:target {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .doug-lightbox-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(9, 9, 11, 0.9);
-      display: block;
-    }
-
-    .doug-lightbox-content {
-      position: relative;
-      z-index: 1;
       max-width: min(95vw, 720px);
-      max-height: 90vh;
-      margin: 5vh auto;
-      padding: 0.75rem;
-      border-radius: 0.75rem;
-      background: rgba(24, 24, 27, 0.75);
+      width: 100%;
       border: 1px solid rgba(113, 113, 122, 0.5);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(24, 24, 27, 0.95);
     }
 
-    .doug-lightbox-content img {
+    .doug-lightbox::backdrop {
+      background: rgba(9, 9, 11, 0.9);
+    }
+
+    .doug-lightbox img {
       width: 100%;
       max-height: 78vh;
       object-fit: contain;
@@ -118,40 +93,63 @@ That rhythm let me stay in “creative direction + product owner” mode while s
 
     .doug-lightbox-close {
       position: absolute;
-      top: 0.25rem;
+      top: 0.35rem;
       right: 0.5rem;
       color: #fff;
-      text-decoration: none;
-      font-size: 1.5rem;
+      border: 0;
+      background: transparent;
+      font-size: 1.6rem;
       line-height: 1;
+      cursor: pointer;
       padding: 0.25rem 0.5rem;
     }
   </style>
 
   <div class="doug-process-grid">
-    <a href="#doug-text-1" class="doug-process-thumb" aria-label="Open conversation screenshot 1">
+    <button type="button" class="doug-process-thumb" data-open-dialog="doug-text-1" aria-haspopup="dialog" aria-controls="doug-text-1" aria-label="Open conversation screenshot 1">
       <img src="/images/blog/doug-portfolio-rebuild-text-message-1.png" alt="Text message screenshot showing Doug helping with portfolio rebuild tasks" loading="lazy" />
-    </a>
-    <a href="#doug-text-2" class="doug-process-thumb" aria-label="Open conversation screenshot 2">
+    </button>
+    <button type="button" class="doug-process-thumb" data-open-dialog="doug-text-2" aria-haspopup="dialog" aria-controls="doug-text-2" aria-label="Open conversation screenshot 2">
       <img src="/images/blog/doug-portfolio-rebuild-text-message-2.png" alt="Text message screenshot showing iterative feedback and deploy updates" loading="lazy" />
-    </a>
+    </button>
   </div>
 
-  <div id="doug-text-1" class="doug-lightbox" role="dialog" aria-modal="true" aria-label="Conversation screenshot 1">
-    <a href="#doug-process-gallery" class="doug-lightbox-backdrop" aria-label="Close image popup"></a>
-    <div class="doug-lightbox-content">
-      <a href="#doug-process-gallery" class="doug-lightbox-close" aria-label="Close image popup">×</a>
-      <img src="/images/blog/doug-portfolio-rebuild-text-message-1.png" alt="Text message screenshot showing Doug helping with portfolio rebuild tasks" />
-    </div>
-  </div>
+  <dialog id="doug-text-1" class="doug-lightbox" aria-label="Conversation screenshot 1">
+    <form method="dialog">
+      <button class="doug-lightbox-close" aria-label="Close image popup">×</button>
+    </form>
+    <img src="/images/blog/doug-portfolio-rebuild-text-message-1.png" alt="Text message screenshot showing Doug helping with portfolio rebuild tasks" />
+  </dialog>
 
-  <div id="doug-text-2" class="doug-lightbox" role="dialog" aria-modal="true" aria-label="Conversation screenshot 2">
-    <a href="#doug-process-gallery" class="doug-lightbox-backdrop" aria-label="Close image popup"></a>
-    <div class="doug-lightbox-content">
-      <a href="#doug-process-gallery" class="doug-lightbox-close" aria-label="Close image popup">×</a>
-      <img src="/images/blog/doug-portfolio-rebuild-text-message-2.png" alt="Text message screenshot showing iterative feedback and deploy updates" />
-    </div>
-  </div>
+  <dialog id="doug-text-2" class="doug-lightbox" aria-label="Conversation screenshot 2">
+    <form method="dialog">
+      <button class="doug-lightbox-close" aria-label="Close image popup">×</button>
+    </form>
+    <img src="/images/blog/doug-portfolio-rebuild-text-message-2.png" alt="Text message screenshot showing iterative feedback and deploy updates" />
+  </dialog>
+
+  <script>
+    (() => {
+      if (window.__dougLightboxBound) return;
+      window.__dougLightboxBound = true;
+
+      document.querySelectorAll('[data-open-dialog]').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          const id = trigger.getAttribute('data-open-dialog');
+          const dialog = id ? document.getElementById(id) : null;
+          if (dialog && dialog.showModal) dialog.showModal();
+        });
+      });
+
+      document.querySelectorAll('dialog.doug-lightbox').forEach((dialog) => {
+        dialog.addEventListener('click', (event) => {
+          const rect = dialog.getBoundingClientRect();
+          const inside = rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width;
+          if (!inside) dialog.close();
+        });
+      });
+    })();
+  </script>
 </div>
 
 > “The best part wasn’t just speed. It was having a collaborator that could take ambiguous design feedback, translate it into concrete code changes, and iterate without losing context.”
