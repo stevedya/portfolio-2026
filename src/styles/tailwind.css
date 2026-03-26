@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import './base.css';
-@import './prism.css' layer(components);
 
 @plugin '@tailwindcss/typography';
 @config '../../typography.ts';
