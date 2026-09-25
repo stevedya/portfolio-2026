@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "rows": 13,
+  "columns": 13,
+  "frameWidth": 300,
+  "frameHeight": 300,
+  "spriteWidth": 3900,
+  "spriteHeight": 3900,
+  "image": "portrait-sprite.webp"
+}
