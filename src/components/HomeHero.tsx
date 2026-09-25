@@ -2,16 +2,15 @@ import { ArrowDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import Image from 'next/image'
 import avatarImg from '@/images/photos/avatar.jpg'
-import cliffSitter from '@/images/photos/cliff-sitter.jpg'
 import HomeHeroReactions from '@/components/HomeHeroReactions'
+import { CursorPortrait } from '@/components/cursor-portrait/CursorPortrait'
 
 const Hero = () => {
   return (
-    <section className="min-h-[84vh] flex items-center gradient-hero pt-20">
+    <section className="flex min-h-[84vh] items-center pt-20 gradient-hero">
       <div className="container-wide max-w-7xl py-14 md:py-20">
-        <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0">
           <div>
             <div className="flex items-center gap-3 mb-5">
               <Avatar className="h-10 w-10 border-2 border-border">
@@ -20,7 +19,20 @@ const Hero = () => {
               </Avatar>
               <p className="text-small">Coffee addict & creator</p>
             </div>
+          </div>
 
+          <div className="mx-auto w-full max-w-[17rem] sm:max-w-[22rem] md:max-w-[24rem] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:mr-0 lg:max-w-[30rem]">
+            <div className="overflow-hidden rounded-lg border border-border/70 bg-card/40 shadow-2xl">
+              <CursorPortrait
+                spriteSrc="/portrait/portrait-sprite.webp"
+                manifestSrc="/portrait/portrait-manifest.json"
+                className="bg-muted/40"
+                ariaLabel="Portrait of Steven Steinwand"
+              />
+            </div>
+          </div>
+
+          <div className="lg:col-start-1">
             <h1 className="heading-display mb-6">
               Solving real problems with <span className="italic">code</span> and thoughtful <span className="italic">design</span>
             </h1>
@@ -40,13 +52,6 @@ const Hero = () => {
             </div>
 
             <HomeHeroReactions />
-          </div>
-
-          <div className="hidden lg:block">
-            <div className="w-72 h-96 rounded-lg overflow-hidden shadow-2xl relative">
-              <Image src={cliffSitter} alt="Steven sitting" fill className="w-full h-auto object-cover" priority />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent" />
-            </div>
           </div>
         </div>
 
