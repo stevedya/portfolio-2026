@@ -24,8 +24,8 @@ const Hero = () => {
           <div className="mx-auto w-full max-w-[17rem] sm:max-w-[22rem] md:max-w-[24rem] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:mr-0 lg:max-w-[30rem]">
             <div className="overflow-hidden rounded-lg border border-border/70 bg-card/40 shadow-2xl">
               <CursorPortrait
-                spriteSrc="/portrait/portrait-sprite.webp"
-                manifestSrc="/portrait/portrait-manifest.json"
+                spriteSrc="/portrait/portrait-sprite-2.webp"
+                manifestSrc="/portrait/portrait-manifest-2.json"
                 className="bg-muted/40"
                 ariaLabel="Portrait of Steven Steinwand"
               />
