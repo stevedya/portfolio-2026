@@ -7,6 +7,20 @@ export type GridPosition = {
 
 export type GridCell = Pick<GridPosition, 'row' | 'column'>
 
+export type GridInterpolation = {
+  x0: number
+  x1: number
+  y0: number
+  y1: number
+  tx: number
+  ty: number
+  cells: {
+    row: number
+    column: number
+    weight: number
+  }[]
+}
+
 export function clamp01(value: number): number {
   return Number.isFinite(value) ? Math.min(1, Math.max(0, value)) : 0.5
 }
@@ -39,6 +53,36 @@ export function normalizedToCell(x: number, y: number, rows: number, columns: nu
   return {
     row: Math.round(clamp01(y) * (rows - 1)),
     column: Math.round(clamp01(x) * (columns - 1)),
+  }
+}
+
+export function normalizedToBilinearCells(x: number, y: number, rows: number, columns: number): GridInterpolation {
+  if (!Number.isInteger(rows) || rows < 1 || !Number.isInteger(columns) || columns < 1) {
+    throw new Error('Grid dimensions must be positive integers.')
+  }
+
+  const gridX = clamp01(x) * (columns - 1)
+  const gridY = clamp01(y) * (rows - 1)
+  const x0 = Math.floor(gridX)
+  const y0 = Math.floor(gridY)
+  const x1 = Math.min(x0 + 1, columns - 1)
+  const y1 = Math.min(y0 + 1, rows - 1)
+  const tx = gridX - x0
+  const ty = gridY - y0
+
+  return {
+    x0,
+    x1,
+    y0,
+    y1,
+    tx,
+    ty,
+    cells: [
+      { row: y0, column: x0, weight: (1 - tx) * (1 - ty) },
+      { row: y0, column: x1, weight: tx * (1 - ty) },
+      { row: y1, column: x0, weight: (1 - tx) * ty },
+      { row: y1, column: x1, weight: tx * ty },
+    ],
   }
 }
 

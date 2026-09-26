@@ -1,8 +1,16 @@
 'use client'
 
 import { useEffect, useRef, type RefObject } from 'react'
-import { clamp01, getSpriteSource, normalizePointerAroundPortrait, normalizedToCell } from '@/shared/grid'
+import {
+  clamp01,
+  getSpriteSource,
+  normalizePointerAroundPortrait,
+  normalizedToBilinearCells,
+  normalizedToCell,
+} from '@/shared/grid'
 import { parseManifest, type PortraitSpriteManifest } from '@/shared/manifest'
+
+type CursorPortraitInterpolation = 'nearest' | 'bilinear'
 
 export type CursorPortraitProps = {
   spriteSrc: string
@@ -11,6 +19,7 @@ export type CursorPortraitProps = {
   trackingMode?: 'portrait' | 'viewport' | 'element'
   trackingElementRef?: RefObject<HTMLElement | null>
   smoothing?: number
+  interpolation?: CursorPortraitInterpolation
   objectFit?: 'contain' | 'cover'
   ariaLabel?: string
   ariaHidden?: boolean
@@ -25,6 +34,7 @@ export function CursorPortrait({
   trackingMode = 'portrait',
   trackingElementRef,
   smoothing = 0.18,
+  interpolation = 'nearest',
   objectFit = 'contain',
   ariaLabel,
   ariaHidden,
@@ -60,18 +70,16 @@ export function CursorPortrait({
     let lastPointer: { x: number; y: number } | null = null
     let lastRow = -1
     let lastColumn = -1
+    let lastDrawX = Number.NaN
+    let lastDrawY = Number.NaN
     let raf = 0
     let backingWidth = 0
     let backingHeight = 0
     const easing = Math.min(1, Math.max(0.01, Number.isFinite(smoothing) ? smoothing : 0.18))
+    const drawEpsilon = 0.0005
 
-    const draw = (force = false) => {
-      if (!manifest || !sprite || !backingWidth || !backingHeight) return
-
-      const { row, column } = normalizedToCell(currentX, currentY, manifest.rows, manifest.columns)
-      if (!force && row === lastRow && column === lastColumn) return
-      lastRow = row
-      lastColumn = column
+    const drawFrame = (row: number, column: number, alpha: number, width: number, height: number) => {
+      if (!manifest || !sprite) return
 
       const { sourceX, sourceY } = getSpriteSource({
         row,
@@ -79,13 +87,11 @@ export function CursorPortrait({
         frameWidth: manifest.frameWidth,
         frameHeight: manifest.frameHeight,
       })
-      const ratio = window.devicePixelRatio || 1
-      const width = backingWidth / ratio
-      const height = backingHeight / ratio
+
       const frameRatio = manifest.frameWidth / manifest.frameHeight
       const canvasRatio = width / height
+      context.globalAlpha = alpha
 
-      context.clearRect(0, 0, width, height)
       if (objectFit === 'contain') {
         const drawWidth = canvasRatio > frameRatio ? height * frameRatio : width
         const drawHeight = canvasRatio > frameRatio ? height : width / frameRatio
@@ -115,6 +121,45 @@ export function CursorPortrait({
           height,
         )
       }
+    }
+
+    const draw = (force = false) => {
+      if (!manifest || !sprite || !backingWidth || !backingHeight) return
+
+      const ratio = window.devicePixelRatio || 1
+      const width = backingWidth / ratio
+      const height = backingHeight / ratio
+
+      if (interpolation === 'nearest') {
+        const { row, column } = normalizedToCell(currentX, currentY, manifest.rows, manifest.columns)
+        if (!force && row === lastRow && column === lastColumn) return
+        lastRow = row
+        lastColumn = column
+        lastDrawX = currentX
+        lastDrawY = currentY
+
+        context.clearRect(0, 0, width, height)
+        drawFrame(row, column, 1, width, height)
+        context.globalAlpha = 1
+        return
+      }
+
+      if (!force && Math.abs(currentX - lastDrawX) < drawEpsilon && Math.abs(currentY - lastDrawY) < drawEpsilon) {
+        return
+      }
+
+      lastDrawX = currentX
+      lastDrawY = currentY
+      lastRow = -1
+      lastColumn = -1
+
+      const blend = normalizedToBilinearCells(currentX, currentY, manifest.rows, manifest.columns)
+      context.clearRect(0, 0, width, height)
+      for (const cell of blend.cells) {
+        if (cell.weight <= 0) continue
+        drawFrame(cell.row, cell.column, cell.weight, width, height)
+      }
+      context.globalAlpha = 1
     }
 
     const resize = () => {
@@ -277,7 +322,7 @@ export function CursorPortrait({
       motionQuery.removeEventListener('change', onPolicyChange)
       pointerQuery.removeEventListener('change', onPolicyChange)
     }
-  }, [spriteSrc, manifestSrc, trackingMode, trackingElementRef, smoothing, objectFit])
+  }, [spriteSrc, manifestSrc, trackingMode, trackingElementRef, smoothing, interpolation, objectFit])
 
   return (
     <canvas
