@@ -26,7 +26,6 @@ const Hero = () => {
               <CursorPortrait
                 spriteSrc="/portrait/portrait-sprite-old.webp"
                 manifestSrc="/portrait/portrait-manifest-old.json"
-                interpolation="bilinear"
                 className="bg-muted/40"
                 ariaLabel="Portrait of Steven Steinwand"
               />
