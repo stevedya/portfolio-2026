@@ -33,7 +33,6 @@ A simple vegetarian pho that is quick to make and easy to customize.
 - 1 tsp sesame oil
 - 1/4 tsp garlic powder
 - 1/4 tsp onion powder
-- optional 1 tbsp maple syrup
 
 ## Instructions
 
