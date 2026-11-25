@@ -6,6 +6,7 @@ import { marked } from 'marked'
 import { withBasePath } from '@/lib/assets'
 import type { Metadata } from 'next'
 import BlogReactions from '@/components/BlogReactions'
+import { CursorPortrait } from '@/components/cursor-portrait/CursorPortrait'
 
 export function generateStaticParams() {
   return getPosts().map((post) => ({ slug: post.slug }))
@@ -91,6 +92,18 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 <figcaption className="text-xs text-muted-foreground mt-2">{post.imageCaption}</figcaption>
               ) : null}
             </figure>
+          ) : null}
+          {post.cursorPortraitDemo ? (
+            <section className="mb-10 overflow-hidden rounded-lg border border-border/70 bg-card/40 p-4 sm:p-6">
+              <p className="mb-3 text-small">This is what I built</p>
+              <CursorPortrait
+                spriteSrc="/portrait/portrait-sprite-old.webp"
+                manifestSrc="/portrait/portrait-manifest-old.json"
+                className="mx-auto max-w-xl bg-muted/40"
+                ariaLabel="Interactive cursor-following portrait of Steven Steinwand"
+              />
+              <p className="mt-3 text-sm text-muted-foreground">Move your cursor around the page to change the portrait’s gaze.</p>
+            </section>
           ) : null}
           <div
             className="prose prose-zinc dark:prose-invert max-w-none"
