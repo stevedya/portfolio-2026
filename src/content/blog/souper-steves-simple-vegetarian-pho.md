@@ -33,12 +33,13 @@ A simple vegetarian pho that is quick to make and easy to customize.
 - 1 tsp sesame oil
 - 1/4 tsp garlic powder
 - 1/4 tsp onion powder
-- optional 1 tbsp maple syrup
+- salt and pepper, to taste
 
 ## Instructions
 
-1. Marinate tofu for 5-10 minutes and air-fry at 390°F for about 15 minutes.
-2. Cook rice noodles according to package instructions.
-3. Heat broth and add veggies in stages (carrots, then onions, then broccoli).
-4. Assemble noodles + broth + veggies + tofu.
-5. Garnish with green onion, basil, and lime.
+1. Marinate tofu for 5-10 minutes.
+2. Air-fry tofu at 390°F for 15 minutes.
+3. Cook rice noodles according to package instructions.
+4. Heat broth and add veggies in stages (carrots, then onions, then broccoli).
+5. Assemble noodles + broth + veggies + tofu.
+6. Garnish with green onion, basil, and lime.
