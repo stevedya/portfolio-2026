@@ -16,20 +16,10 @@ const Hero = () => {
             <div className="flex items-center gap-3 mb-5">
               <Avatar className="h-10 w-10 border-2 border-border">
                 <AvatarImage src={avatarImg.src} alt="Steven Steinwand" />
-                <AvatarFallback>SS</AvatarFallback>
+              <AvatarFallback>SS</AvatarFallback>
               </Avatar>
               <p className="text-small">Coffee addict & creator</p>
             </div>
-          </div>
-
-          <div className="hidden lg:block">
-            <div className="relative h-96 w-72 overflow-hidden rounded-lg shadow-2xl">
-              <Image src={cliffSitter} alt="Steven sitting" fill className="object-cover" priority />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent" />
-            </div>
-          </div>
-
-          <div>
             <h1 className="heading-display mb-6">
               Solving real problems with <span className="italic">code</span> and thoughtful <span className="italic">design</span>
             </h1>
@@ -49,6 +39,13 @@ const Hero = () => {
             </div>
 
             <HomeHeroReactions />
+          </div>
+
+          <div className="hidden lg:block">
+            <div className="relative h-96 w-72 overflow-hidden rounded-lg shadow-2xl">
+              <Image src={cliffSitter} alt="Steven sitting" fill className="object-cover" priority />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent" />
+            </div>
           </div>
         </div>
 

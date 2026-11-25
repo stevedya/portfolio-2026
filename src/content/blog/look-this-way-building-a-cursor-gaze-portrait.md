@@ -20,6 +20,8 @@ A normal headshot has one point of view. To make it respond, I needed a library 
 
 That could have meant manually photographing and naming dozens of files. Instead, I built the capture workflow around [Cursor Gaze](https://github.com/stevedya/cursor-gaze), a small local capture studio and React canvas component created specifically for the job.
 
+![The Cursor Gaze capture studio, showing capture-density controls, the camera preview, and the session progress panel.](/images/blog/cursor-gaze-capture-studio.png)
+
 ## Building the capture studio
 
 The capture tool turns a webcam session into a consistent grid of portrait frames. You choose a 7 × 7 grid for a quick pass or a denser 13 × 13 grid for smoother directional changes. I used the 13 × 13 option here, so the finished sheet contains 169 frames.
